@@ -1,21 +1,32 @@
 ---
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ingress
+  name: kong-ingress
   annotations:
-    kubernetes.io/ingress.class: traefik-internal
+    konghq.com/strip-path: 'true'
+    konghq.com/plugins: rewrite-path
   labels:
     traffic-type: internal
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`govee-web.hl.ancalagon.black`)
-      priority: 10
-      services:
-        - name: govee-web-svc
-          port: 80
-  tls:
-    certResolver: default
+  ingressClassName: kong
+  rules:
+    - host: api.hl.ancalagon.black
+      http:
+        paths:
+          - path: /govee/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: govee-web-svc
+                port:
+                number: 80
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: rewrite-path
+config:
+  replace:
+    uri: '/api/v1/$(uri_captures[1])'

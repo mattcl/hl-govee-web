@@ -17,15 +17,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: "app-config"
-            
+            - secretRef:
+                name: "govee-secret"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
-          volumeMounts:
-            - name: data
-              mountPath: /data
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: data-pvc
