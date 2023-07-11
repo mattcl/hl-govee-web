@@ -5,7 +5,7 @@ metadata:
   name: kong-ingress
   annotations:
     kubernetes.io/ingress.class: kong
-    konghq.com/plugins: rewrite-path
+    konghq.com/plugins: govee-web-rewrite-path
   labels:
     traffic-type: internal
 spec:
