@@ -20,7 +20,7 @@ spec:
               service:
                 name: govee-web-svc
                 port:
-                number: 80
+                  number: 80
 
 ---
 apiVersion: configuration.konghq.com/v1
