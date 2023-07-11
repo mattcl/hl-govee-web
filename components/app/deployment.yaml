@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: "mattcl/govee-web:0.1.0"
+          image: "mattcl/govee-web:0.1.1"
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
@@ -23,3 +23,12 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            failureThreshold: 2
+            terminationGracePeriodSeconds: 5
