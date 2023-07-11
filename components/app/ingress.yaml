@@ -4,7 +4,6 @@ kind: Ingress
 metadata:
   name: kong-ingress
   annotations:
-    konghq.com/strip-path: 'true'
     konghq.com/plugins: rewrite-path
   labels:
     traffic-type: internal
@@ -30,3 +29,4 @@ metadata:
 config:
   replace:
     uri: '/api/v1/$(uri_captures[1])'
+plugin: request-transformer
