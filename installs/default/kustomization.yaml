@@ -10,7 +10,7 @@ namespace: "govee-web"
 namePrefix: "govee-web-"
 images:
   - name: "mattcl/govee-web"
-    newTag: "0.1.2"
+    newTag: "0.1.3"
   - name: "docker.io/bitnami/redis"
     newTag: "6.2.12"
 configMapGenerator:
